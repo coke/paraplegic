@@ -41,6 +41,7 @@ object.
 .include 'src/gen_grammar.pir'
 .include 'src/gen_actions.pir'
 
+.namespace []
 .sub 'onload' :anon :load :init
     $P0 = get_hll_global ['PCT'], 'HLLCompiler'
     $P1 = $P0.'new'()
@@ -65,7 +66,9 @@ to the APL compiler.
 .sub 'main' :main
     .param pmc args
 
-    $P0 = compreg 'APL'
+    $P0 = getstdin
+    $P0.'encoding'('utf8')
+    $P0 = compreg 'apl'
     $P1 = $P0.'command_line'(args, 'encoding'=>'utf8')
 .end
 
