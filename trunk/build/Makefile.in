@@ -31,11 +31,11 @@ PCT           = $(BUILD_DIR)/runtime/parrot/library/PCT.pbc
 
 PMC_DIR       = src/pmc
 
-all: APL.pbc
+all: apl.pbc
 
 APL_GROUP = $(PMC_DIR)/apl_group$(LOAD_EXT)
 
-SOURCES = APL.pir \
+SOURCES = apl.pir \
   src/gen_grammar.pir \
   src/gen_actions.pir \
   src/gen_builtins.pir \
@@ -45,8 +45,8 @@ PMCS = aplvector
 PMC_SOURCES = $(PMC_DIR)/aplvector.pmc
 
 # the default target
-APL.pbc: $(PARROT) $(SOURCES) $(APL_GROUP)
-	$(PARROT) $(PARROT_ARGS) -o APL.pbc APL.pir
+apl.pbc: $(PARROT) $(SOURCES) $(APL_GROUP)
+	$(PARROT) $(PARROT_ARGS) -o apl.pbc apl.pir
 
 src/gen_grammar.pir: $(PERL6GRAMMAR) src/parser/grammar.pg
 	$(PARROT) $(PARROT_ARGS) $(PERL6GRAMMAR) \
@@ -76,7 +76,7 @@ help:
 	@echo ""
 	@echo "Following targets are available for the user:"
 	@echo ""
-	@echo "  all:               APL.pbc"
+	@echo "  all:               apl.pbc"
 	@echo "                     This is the default."
 	@echo "Testing:"
 	@echo "  test:              Run the test suite."
@@ -98,7 +98,7 @@ testclean:
 	$(RM_F) t/*.pir
 
 CLEANUPS = \
-  APL.pbc \
+  apl.pbc \
   src/gen_grammar.pir \
   src/gen_actions.pir \
   src/gen_builtins.pir \

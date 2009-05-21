@@ -44,7 +44,7 @@ object.
 .sub 'onload' :anon :load :init
     $P0 = get_hll_global ['PCT'], 'HLLCompiler'
     $P1 = $P0.'new'()
-    $P1.'language'('APL')
+    $P1.'language'('apl')
     $P0 = get_hll_namespace ['APL';'Grammar']
     $P1.'parsegrammar'($P0)
     $P0 = get_hll_namespace ['APL';'Grammar';'Actions']
