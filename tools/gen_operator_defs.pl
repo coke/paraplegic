@@ -197,9 +197,7 @@ END_PIR
     .local pmc value
     $I0 = does arg, 'array'
     if $I0 goto print_vector
-    value = arg
-    bsr print_value
-    .return (result)
+    .tailcall _print_value(arg)
 
   print_vector:
     .local pmc shape, iter
@@ -214,7 +212,7 @@ END_PIR
   iter_loop:
     old_type = value_type
     value = shift iter
-    bsr print_value
+    result = _print_value(value)
     unless iter goto iter_end
     value_type = typeof value
     if value_type != 'String' goto print_space
@@ -242,7 +240,7 @@ END_PIR
   cont_2d:
     old_type = value_type
     value = shift iter
-    bsr print_value
+    result = _print_value(value)
     unless iter goto loop_end_2d
     value_type = typeof value
     if newline goto print_newline
@@ -265,14 +263,18 @@ END_PIR
   loop_end_2d:
    .return(result)
 
-  print_value:
-    if value >= 0.0 goto print_value_1
+.end
+
+.sub '_print_value'
+    .param pmc value
+    .local string result
+    if value >= 0.0 goto no_sign
     result .= unicode:"\u207b"
     value = abs value
-  print_value_1:
+  no_sign:
     $S0 = value
     result .= $S0
-    ret
+    .return(result)
 .end
 
 .sub 'aplprint'
